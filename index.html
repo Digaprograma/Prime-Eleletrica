@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Elétrica</title>
+</head>
+<body>
+    <html><head><base href="https://primeeletrica.com.br/"/>
+        <title>Prime Elétrica - Serviços Elétricos Profissionais</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+        :root {
+            --primary-color: #FFD700;
+            --secondary-color: #1E3D59;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .navbar {
+            background-color: var(--secondary-color);
+        }
+        
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .nav-link {
+            color: white !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3');
+            background-size: cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .service-card {
+            border: none;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        
+        .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-check {
+            margin-bottom: 10px;
+        }
+        
+        .card-title {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        
+        .service-tooltip {
+            position: absolute;
+            display: none;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-width: 200px;
+            top: 0;
+            right: -210px;
+        }
+        
+        .service-card:hover .service-tooltip {
+            display: block;
+        }
+        
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .contact-form {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .gallery-container {
+            padding: 20px;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .before-after-container {
+            position: relative;
+        }
+        
+        .image-caption {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .gallery-img:hover {
+            opacity: 0.9;
+        }
+        
+        .service-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        
+        .total-section {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            position: sticky;
+            bottom: 20px;
+        }
+        
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .empty-after {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            background: #e9ecef;
+            border-radius: 8px;
+        }
+        
+        .empty-placeholder {
+            color: #6c757d;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .modal-image {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .modal-image img {
+            max-width: 90%;
+            max-height: 90vh;
+        }
+        
+        .delete-image-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: none;
+            z-index: 2;
+        }
+        
+        .gallery-item:hover .delete-image-btn {
+            display: block;
+        }
+        </style>
+        </head>
+        <body>
+        
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="/">Prime Elétrica</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/galeria">Galeria</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/sistema-solar">Sistema Solar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contato">Contato</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/quem-somos">Quem Somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">Administrador</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Página 1 - Serviços -->
+        <div id="servicos" class="container mt-5 pt-5">
+            <div class="hero-section mb-5">
+                <h1>Prime Elétrica</h1>
+                <p class="lead">Soluções elétricas profissionais para sua casa ou empresa</p>
+            </div>
+        
+            <h2 class="text-center mb-5">Selecione os Serviços Desejados</h2>
+            <p class="text-center mb-4 text-muted">* Os valores apresentados são referências e podem sofrer alterações de acordo com a complexidade e dificuldade do serviço.</p>
+        
+            <div class="row mb-4">
+                <div class="col-md-6 mx-auto">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </span>
+                        <input type="text" class="form-control" id="searchServicos" placeholder="Pesquisar serviços..." onkeyup="filtrarServicos()">
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row" id="lista-servicos">
+            </div>
+        
+            <div class="total-section">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h3>Total dos Serviços Selecionados: <span id="total-valor">R$ 0,00</span></h3>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-lg w-100" onclick="contratarServicos()" id="btn-contratar" disabled>
+                            Contratar Serviços
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Página 2 - Galeria -->
+        <div id="galeria" class="container mt-5 pt-5" style="display: none;">
+            <h2 class="text-center mb-4">Galeria de Trabalhos</h2>
+            <p class="text-center text-muted mb-4">Antes e Depois dos nossos serviços</p>
+            
+            <div class="text-center mb-4">
+                <button class="btn btn-primary me-2" onclick="handleImageUpload('before')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload me-2" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                    </svg>
+                    Upload Imagem "Antes"
+                </button>
+                <button class="btn btn-primary" onclick="handleImageUpload('after')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload me-2" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                    </svg>
+                    Upload Imagem "Depois"
+                </button>
+            </div>
+        
+            <div class="gallery-container">
+                <div class="image-grid" id="comparison-grid">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Página 3 - Contato -->
+        <div id="contato" class="container mt-5 pt-5" style="display: none;">
+            <h2 class="text-center mb-5">Entre em Contato</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-info">
+                        <h3>Informações de Contato</h3>
+                        <p><i class="fas fa-phone"></i> (31) 98713-8363</p>
+                        <p><i class="fas fa-envelope"></i> primeeletricasolar@gmail.com</p>
+                        <p><i class="fas fa-building"></i> CNPJ: 52.522.785/0001-66</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Rua: Abre Campo, Nº 318<br>
+                           Bairro Nossa Senhora de Fátima<br>
+                           Sabará - MG<br>
+                           CEP: 34600-350</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <form class="contact-form" id="contactForm">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensagem" class="form-label">Mensagem</label>
+                            <textarea class="form-control" id="mensagem" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Página 4 - Sistema Solar -->
+        <div id="sistema-solar" class="container mt-5 pt-5" style="display: none;">
+            <h2 class="text-center mb-5">Calculadora de Sistema Solar</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card p-4">
+                        <form id="solarForm">
+                            <div class="mb-3">
+                                <label for="contaEnergia" class="form-label">Valor médio da conta de energia (R$)</label>
+                                <input type="number" class="form-control" id="contaEnergia" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Calcular Sistema Necessário</button>
+                        </form>
+                        
+                        <div id="resultadoSolar" class="mt-4" style="display: none;">
+                            <h4>Resultado do Cálculo:</h4>
+                            <div class="alert alert-info">
+                                <p><strong>Consumo Mensal Estimado:</strong> <span id="consumoMensal">0</span> kWh</p>
+                                <p><strong>Número de Placas Recomendado:</strong> <span id="numeroPlacas">0</span></p>
+                                <p><strong>Potência Total do Sistema:</strong> <span id="potenciaSistema">0</span> kWp</p>
+                                <p class="mb-0"><em>* Cálculo com margem de segurança de 40% incluída</em></p>
+                            </div>
+                            <button class="btn btn-primary btn-lg w-100 mt-3" onclick="contratarSistemaSolar()">
+                                Contratar Sistema Solar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Página 5 - Quem Somos -->
+        <div id="quem-somos" class="container mt-5 pt-5" style="display: none;">
+            <h2 class="text-center mb-5">Quem Somos</h2>
+            
+            <section class="mb-5">
+                <h3 class="mb-4">Quem é a Prime Elétrica</h3>
+                <p class="lead">
+                    Somos uma empresa de instalações elétricas em geral, atuamos nas instalações Residenciais, Prediais e com sistema de energia fotovoltaico, a famosa energia produzida pelo sol. Com técnicos qualificados e altamente treinados.                </p>
+            </section>
+        
+            <section class="mb-5">
+                <h3 class="mb-4">Sistema Fotovoltaico</h3>
+                <h4>DEFINIÇÕES TRAZIDAS PELA RESOLUÇÃO DA ANEEL</h4>
+                <p>
+                    Nas resoluções a ANEEL definiu o sistema de "compensação de energia" que permite que pessoas que produzam energia com microusinas solares gerem crédito para si, que podem ser usados em até 60 meses ou para outro imóvel cuja conta esteja em seu nome. Outras modalidades trazidas pela norma:
+                </p>
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item">Autoconsumo remoto: onde é possível gerar energia em locais distantes do ponto de consumo, por exemplo instalar no sitio e utilizar em um apartamento;</li>
+                    <li class="list-group-item">Geração compartilhada: pessoas e empresas podem se unir, por meio de consórcios ou cooperativas e adquirir juntos seu sistema e os créditos gerados são divididos proporcionalmente às cotas;</li>
+                    <li class="list-group-item">Condomínios: os condôminos podem utilizar a energia gerada para as áreas comuns e o excedente repartir entre si;</li>
+                </ul>
+        
+                <h4>FUNCIONAMENTO DO SISTEMA</h4>
+                <p>
+                    O sistema é composto basicamente por painéis fotovoltaicos, inversor de corrente e um medidor bidirecional. Os painéis geram energia elétrica de corrente contínua, o inversor a converte para corrente alternada e o medidor bidirecional controla a produção do sistema utilizando corrente da concessionária ou acumulando crédito da produção do sistema solar, o que evita a necessidade de ter baterias para utilizar a energia excedente produzida durante parte do dia, esse sistema estabelece que a energia excedente produzida é injetada na rede elétrica e convertida em créditos, os quais serão abatidos em horários, dias ou meses de menor geração, podendo ser utilizados em outras Unidades Consumidoras de mesma titularidade.
+                </p>
+            </section>
+        
+            <section class="mb-5">
+                <h3 class="mb-4">PRESTAÇÃO DE SERVIÇOS</h3>
+                <p>O eletricista é um profissional indispensável em diversos momentos do dia a dia, tanto na construção civil quanto em reparos, reformas ou vistorias.</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">✓ Instalações residenciais e Prediais</li>
+                            <li class="list-group-item">✓ Sistema fotovoltaico (Energia solar)</li>
+                            <li class="list-group-item">✓ Instalação de Painel Elétrico</li>
+                            <li class="list-group-item">✓ Instalação Padrão CEMIG (NDs 5.1 e 5.2)</li>
+                            <li class="list-group-item">✓ Instalação de Motores</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">✓ Reformas Elétricas</li>
+                            <li class="list-group-item">✓ Portão Eletrônicos</li>
+                            <li class="list-group-item">✓ Circuito CFTV</li>
+                            <li class="list-group-item">✓ Reforma em Telhados de Estrutura Metálicas</li>
+                            <li class="list-group-item">✓ Obras Civil</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        
+            <div class="text-center mt-5">
+                <h3>Faça um orçamento</h3>
+                <p class="lead">Deixa a Prime Elétrica cuidar da parte elétrica para você, com mão de obra qualificada e segura.</p>
+                <a href="/contato" class="btn btn-primary btn-lg">Solicitar Orçamento</a>
+            </div>
+        </div>
+        
+        <!-- Página Admin -->
+        <div id="admin" class="container mt-5 pt-5" style="display: none;">
+            <div id="adminLogin" class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="text-center mb-4">Login Administrador</h3>
+                            <form id="loginForm" onsubmit="return checkLogin(event)">
+                                <div class="mb-3">
+                                    <label class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="adminPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div id="adminPanel" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Gerenciar Serviços</h2>
+                    <button class="btn btn-danger" onclick="logoutAdmin()">Sair</button>
+                </div>
+        
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4>Adicionar Novo Serviço</h4>
+                        <form id="newServiceForm" onsubmit="return addNewService(event)">
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input type="text" class="form-control" id="newServiceTitle" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Preço (R$)</label>
+                                <input type="number" step="0.01" class="form-control" id="newServicePrice" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Imagem URL</label>
+                                <input type="url" class="form-control" id="newServiceImage" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Salvar Novo Serviço</button>
+                        </form>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Serviços Existentes</h4>
+                        <div id="adminServicesList" class="table-responsive">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="imageModal" class="modal-image" onclick="closeImageModal()" style="display: none;">
+            <img id="modalImage" src="" alt="Enlarged image">
+        </div>
+        
+        <script>
+        let isAdminLoggedIn = false;
+        
+        const servicos = [
+            {
+                id: 1,
+                titulo: "INSTALAÇÃO ARANDELA, PENDENTE OU SPOT COMUM",
+                preco: 55.00
+            },
+            {
+                id: 2,
+                titulo: "INSTALAÇÃO LÂMPADA FLUORESCENTE/ LED (TUBULAR)",
+                preco: 60.00
+            },
+            {
+                id: 3,
+                titulo: "LUSTRES SIMPLES / LUMINÁRIA",
+                preco: 80.00
+            },
+            {
+                id: 4,
+                titulo: "LUSTRES GRANDES / LUMINÁRIA",
+                preco: 120.00
+            },
+            {
+                id: 5,
+                titulo: "REFLETOR DE JARDIM",
+                preco: 90.00
+            },
+            {
+                id: 6,
+                titulo: "REFLETOR DE POSTE COMUM",
+                preco: 120.00
+            },
+            {
+                id: 7,
+                titulo: "REFLETOR DE POSTE COM LÂMPADA A VAPOR",
+                preco: 120.00
+            },
+            {
+                id: 8,
+                titulo: "INTERRUPTOR SIMPLES ou PULSADOR",
+                preco: 40.00
+            },
+            {
+                id: 9,
+                titulo: "INTERRUPTOR TREE-WAY / FOUR WAY",
+                preco: 60.00
+            },
+            {
+                id: 10,
+                titulo: "INTERRUPTOR DUPLO / BIPOLAR",
+                preco: 50.00
+            },
+            {
+                id: 11,
+                titulo: "INTERRUPTOR E TOMADA (Juntos)",
+                preco: 50.00
+            },
+            {
+                id: 12,
+                titulo: "REATOR DE LÂMPADA A VAPOR",
+                preco: 70.00
+            },
+            {
+                id: 13,
+                titulo: "FOTOCÉLULA / SENSOR PRESENÇA",
+                preco: 60.00
+            },
+            {
+                id: 14,
+                titulo: "REFLETOR LED + FOTOCÉLULA ou SENSOR DE PRESENÇA",
+                preco: 70.00
+            },
+            {
+                id: 15,
+                titulo: "LUMINÁRIA DE EMERGÊNCIA DE SOBREPOR",
+                preco: 60.00
+            },
+            {
+                id: 16,
+                titulo: "LUMINÁRIA DE EMERGÊNCIA DE EMBUTIR (caixinha 2x4)",
+                preco: 70.00
+            },
+            {
+                id: 17,
+                titulo: "INSTALAÇÃO PERFIL DE LED (O METRO linear)",
+                preco: 140.00
+            },
+            {
+                id: 18,
+                titulo: "LUMINÁRIA TUBULAR - TROCA SISTEMA DE REATOR PARA LED",
+                preco: 70.00
+            },
+            {
+                id: 19,
+                titulo: "TOMADA SIMPLES",
+                preco: 40.00
+            },
+            {
+                id: 20,
+                titulo: "TOMADA DUPLA",
+                preco: 50.00
+            },
+            {
+                id: 21,
+                titulo: "TOMADA TRIPLA",
+                preco: 55.00
+            },
+            {
+                id: 22,
+                titulo: "TOMADA DE PISO E / OU TELEFONE",
+                preco: 40.00
+            },
+            {
+                id: 23,
+                titulo: "TOMADA INDUSTRIAL (3P+t)",
+                preco: 80.00
+            },
+            {
+                id: 24,
+                titulo: "INSTALAÇÃO TOMADA DE SOBREPOR COM CANALETA",
+                preco: 55.00
+            },
+            {
+                id: 25,
+                titulo: "Passagem de cabo ente 1,5mm² ate 4mm² em eletroduto o metro",
+                preco: 3.50
+            },
+            {
+                id: 26,
+                titulo: "VENTILADOR DE TETO",
+                preco: 120.00
+            },
+            {
+                id: 27,
+                titulo: "VENTILADOR DE PAREDE",
+                preco: 90.00
+            },
+            {
+                id: 28,
+                titulo: "ENTRADA MONOFÁSICA (QM PARA QDC)",
+                preco: 190.00
+            },
+            {
+                id: 29,
+                titulo: "ENTRADA BIFÁSICA OU TRIFÁSICA (QM PARA QDC)",
+                preco: 250.00
+            },
+            {
+                id: 30,
+                titulo: "ALIMENTAÇÃO PARA MOTORES",
+                preco: 180.00
+            },
+            {
+                id: 31,
+                titulo: "CURTO CIRCUITO MONOFÁSICO",
+                preco: 150.00
+            },
+            {
+                id: 32,
+                titulo: "CURTO CIRCUITO BIFÁSICO",
+                preco: 180.00
+            },
+            {
+                id: 33,
+                titulo: "CURTO CIRCUITO TRIFÁSICO",
+                preco: 200.00
+            },
+            {
+                id: 34,
+                titulo: "INSTALAÇÃO DE MEDIDOR (Padrão de entrada - Monofásico 127V ou 220V)",
+                preco: 1300.00
+            },
+            {
+                id: 35,
+                titulo: "INSTALAÇÃO DE MEDIDOR (Padrão de entrada - Bifásico 220V)",
+                preco: 1500.00
+            },
+            {
+                id: 36,
+                titulo: "INSTALAÇÃO DE MEDIDOR (Padrão de entrada - Trifásico 220V)",
+                preco: 1700.00
+            },
+            {
+                id: 37,
+                titulo: "LIMPEZA EM TUBULAÇÃO DE AR CONDICIONADO (existente no local)",
+                preco: 60.00
+            },
+            {
+                id: 38,
+                titulo: "ALIMENTAÇÃO ELÉTRICA PARA AR CONDICIONADO",
+                preco: 110.00
+            },
+            {
+                id: 39,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 9000 BTUS (Parede c/ parede)",
+                preco: 500.00
+            },
+            {
+                id: 40,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 12000 BTUS (Parede c/ parede)",
+                preco: 500.00
+            },
+            {
+                id: 41,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 18000 BTUS (Parede c/ parede)",
+                preco: 600.00
+            },
+            {
+                id: 42,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 24000 BTUS (Parede c/ parede)",
+                preco: 700.00
+            },
+            {
+                id: 43,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 30000 BTUS (Parede c/ parede)",
+                preco: 850.00
+            },
+            {
+                id: 44,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 9000 BTUS (Parede c/ parede)",
+                preco: 440.00
+            },
+            {
+                id: 45,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 12000 BTUS (Parede c/ parede)",
+                preco: 490.00
+            },
+            {
+                id: 46,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 18000 BTUS (Parede c/ parede)",
+                preco: 540.00
+            },
+            {
+                id: 47,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 24000 BTUS (Parede c/ parede)",
+                preco: 640.00
+            },
+            {
+                id: 48,
+                titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 30000 BTUS (Parede c/ parede)",
+                preco: 740.00
+            },
+            {
+                id: 49,
+                titulo: "ATENDIMENTO TÉCNICO EMERGENCIAL (Final de semana)",
+                preco: 240.00
+            },
+            {
+                id: 50,
+                titulo: "ATENDIMENTO TÉCNICO EMERGENCIAL (Durante a semana)",
+                preco: 180.00
+            },
+            {
+                id: 51,
+                titulo: "INSTALAÇÃO E MONTAGEM QDC (6 CIRCUITOS + DR + DPS)",
+                preco: 485.00
+            }
+        ];
+        
+        let servicosSelecionados = new Set();
+        
+        function carregarServicos() {
+            const listaServicos = document.getElementById('lista-servicos');
+            listaServicos.innerHTML = '';
+            
+            servicos.forEach(servico => {
+                const servicoHTML = `
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                        <div class="card service-card position-relative h-100">
+                            <div class="card-body d-flex flex-column">
+                                <div class="form-check">
+                                    <input class="form-check-input service-checkbox" type="checkbox" 
+                                           id="servico-${servico.id}" 
+                                           onchange="atualizarTotal(${servico.id})">
+                                    <label class="form-check-label" for="servico-${servico.id}">
+                                        ${servico.titulo}
+                                    </label>
+                                </div>
+                                <p class="card-text mt-2">
+                                    <strong>R$ ${servico.preco.toFixed(2)}</strong>
+                                </p>
+                                <div class="quantity-control mt-2" style="display: none;">
+                                    <label>Quantidade:</label>
+                                    <input type="number" min="1" value="1" 
+                                           class="form-control" 
+                                           id="quantidade-${servico.id}"
+                                           onchange="atualizarTotal(${servico.id})">
+                                </div>
+                                <div class="service-tooltip">
+                                    <img src="${getServiceImage(servico.id)}" 
+                                         alt="${servico.titulo}" 
+                                         class="img-fluid"
+                                         width="180" height="120">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                listaServicos.innerHTML += servicoHTML;
+            });
+        }
+        
+        function getServiceImage(servicoId) {
+            const servico = servicos.find(s => s.id === servicoId);
+            if (servico && servico.imagem) {
+                return servico.imagem;
+            }
+            
+            const imageMap = {
+                1: "https://casaeconceito.com.br/wp-content/uploads/2022/08/Imagem-abajures.jpg",
+                2: "https://www.abilumi.org.br/wp-content/uploads/2017/02/LedTubular-500x402.jpg",
+                3: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=180",
+                4: "https://images.unsplash.com/photo-1572911336570-93898efd63b7?w=180",
+                5: "https://images.unsplash.com/photo-1621905252189-08b45d6a269e?w=180",
+            };
+            
+            return imageMap[servicoId] || "https://images.unsplash.com/photo-1621905252189-08b45d6a269e?w=180";
+        }
+        
+        function atualizarTotal(servicoId) {
+            const checkbox = document.getElementById(`servico-${servicoId}`);
+            const quantidadeControl = checkbox.closest('.card-body').querySelector('.quantity-control');
+            const quantidadeInput = document.getElementById(`quantidade-${servicoId}`);
+            
+            if (checkbox.checked) {
+                servicosSelecionados.add(servicoId);
+                quantidadeControl.style.display = 'block';
+            } else {
+                servicosSelecionados.delete(servicoId);
+                quantidadeControl.style.display = 'none';
+                quantidadeInput.value = 1;
+            }
+        
+            const total = Array.from(servicosSelecionados).reduce((sum, id) => {
+                const servico = servicos.find(s => s.id === id);
+                const quantidade = parseInt(document.getElementById(`quantidade-${id}`).value) || 1;
+                return sum + (servico.preco * quantidade);
+            }, 0);
+        
+            document.getElementById('total-valor').textContent = `R$ ${total.toFixed(2)}`;
+            document.getElementById('btn-contratar').disabled = servicosSelecionados.size === 0;
+        }
+        
+        function contratarServicos() {
+            const servicosContratados = Array.from(servicosSelecionados).map(id => {
+                const servico = servicos.find(s => s.id === id);
+                const quantidade = parseInt(document.getElementById(`quantidade-${id}`).value) || 1;
+                return {
+                    ...servico,
+                    quantidade,
+                    totalServico: servico.preco * quantidade
+                };
+            });
+        
+            const total = servicosContratados.reduce((sum, servico) => sum + servico.totalServico, 0);
+            
+            const mensagem = `Olá! Gostaria de contratar os seguintes serviços:\n\n${
+                servicosContratados.map(s => 
+                    `• ${s.titulo}\n   Quantidade: ${s.quantidade}\n   Valor unitário: R$ ${s.preco.toFixed(2)}\n   Subtotal: R$ ${s.totalServico.toFixed(2)}`
+                ).join('\n\n')
+            }\n\n*Total: R$ ${total.toFixed(2)}*\n\n*Obs: Os valores apresentados são referências e podem sofrer alterações de acordo com a complexidade e dificuldade do serviço.*`;
+        
+            const whatsappNumber = "5531987138363";
+            const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(mensagem)}`;
+        
+            window.open(whatsappLink, '_blank');
+        }
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pagina = this.getAttribute('href').replace('/', '');
+                mostrarPagina(pagina);
+            });
+        });
+        
+        function mostrarPagina(pagina) {
+            document.getElementById('servicos').style.display = 'none';
+            document.getElementById('galeria').style.display = 'none';
+            document.getElementById('contato').style.display = 'none';
+            document.getElementById('sistema-solar').style.display = 'none';
+            document.getElementById('quem-somos').style.display = 'none';
+            document.getElementById('admin').style.display = 'none';
+        
+            switch(pagina) {
+                case '':
+                    document.getElementById('servicos').style.display = 'block';
+                    break;
+                case 'galeria':
+                    document.getElementById('galeria').style.display = 'block';
+                    updateGalleryButtons();
+                    break;
+                case 'contato':
+                    document.getElementById('contato').style.display = 'block';
+                    break;
+                case 'sistema-solar':
+                    document.getElementById('sistema-solar').style.display = 'block';
+                    break;
+                case 'quem-somos':
+                    document.getElementById('quem-somos').style.display = 'block';
+                    break;
+                case 'admin':
+                    document.getElementById('admin').style.display = 'block';
+                    break;
+            }
+        }
+        
+        function updateGalleryButtons() {
+            const uploadButtons = document.querySelector('#galeria .text-center.mb-4');
+            if (uploadButtons) {
+                if (isAdminLoggedIn) {
+                    uploadButtons.style.opacity = '1';
+                    uploadButtons.style.pointerEvents = 'all';
+                } else {
+                    uploadButtons.style.opacity = '0.5';
+                    uploadButtons.style.pointerEvents = 'none';
+                }
+            }
+        }
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const mensagem = document.getElementById('mensagem').value;
+            
+            alert(`Mensagem enviada!\nNome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`);
+            this.reset();
+        });
+        
+        document.getElementById('solarForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const valorConta = parseFloat(document.getElementById('contaEnergia').value);
+            const tarifaMedia = 0.95;
+            
+            let consumoMensal = (valorConta / tarifaMedia);
+            consumoMensal = consumoMensal * 1.4;
+            
+            const potenciaPainel = 0.55; 
+            const horasSolPorDia = 5; 
+            const eficiencia = 0.8; 
+            
+            const energiaNecessariaDiaria = (consumoMensal / 30);
+            const potenciaNecessaria = (energiaNecessariaDiaria / (horasSolPorDia * eficiencia));
+            const numeroPlacas = Math.ceil(potenciaNecessaria / potenciaPainel);
+            const potenciaTotalSistema = (numeroPlacas * potenciaPainel).toFixed(2);
+            
+            document.getElementById('consumoMensal').textContent = Math.round(consumoMensal);
+            document.getElementById('numeroPlacas').textContent = numeroPlacas;
+            document.getElementById('potenciaSistema').textContent = potenciaTotalSistema;
+            document.getElementById('resultadoSolar').style.display = 'block';
+        });
+        
+        function contratarSistemaSolar() {
+            const consumoMensal = document.getElementById('consumoMensal').textContent;
+            const numeroPlacas = document.getElementById('numeroPlacas').textContent;
+            const potenciaSistema = document.getElementById('potenciaSistema').textContent;
+            const valorConta = document.getElementById('contaEnergia').value;
+            
+            const mensagem = `Olá! Gostaria de um orçamento para Sistema Solar com as seguintes características:\n\n` +
+                `• Valor atual da conta: R$ ${valorConta}\n` +
+                `• Consumo Mensal Estimado: ${consumoMensal} kWh\n` +
+                `• Número de Placas Necessárias: ${numeroPlacas}\n` +
+                `• Potência Total do Sistema: ${potenciaSistema} kWp\n\n` +
+                `Por favor, gostaria de receber mais informações sobre o sistema e um orçamento.`;
+        
+            const whatsappNumber = "5531987138363";
+            const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(mensagem)}`;
+            
+            window.open(whatsappLink, '_blank');
+        }
+        
+        function checkLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'Prime318@') {
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                isAdminLoggedIn = true;
+                loadAdminServices();
+            } else {
+                alert('Senha incorreta!');
+            }
+            return false;
+        }
+        
+        function logoutAdmin() {
+            document.getElementById('adminLogin').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+            isAdminLoggedIn = false;
+        }
+        
+        function loadAdminServices() {
+            const adminList = document.getElementById('adminServicesList');
+            let html = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagem</th>
+                            <th>Título</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            servicos.forEach(servico => {
+                html += `
+                    <tr>
+                        <td>${servico.id}</td>
+                        <td>
+                            <img src="${getServiceImage(servico.id)}" alt="Imagem do serviço" width="50" height="50">
+                            <input type="url" class="form-control mt-1" 
+                                   placeholder="Nova URL da imagem"
+                                   onchange="updateService(${servico.id}, 'imagem', this.value)">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" value="${servico.titulo}" 
+                                   onchange="updateService(${servico.id}, 'titulo', this.value)">
+                        </td>
+                        <td>
+                            <input type="number" step="0.01" class="form-control" value="${servico.preco}" 
+                                   onchange="updateService(${servico.id}, 'preco', this.value)">
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deleteService(${servico.id})">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody></table>';
+            adminList.innerHTML = html;
+        }
+        
+        function addNewService(event) {
+            event.preventDefault();
+            const newService = {
+                id: servicos.length + 1,
+                titulo: document.getElementById('newServiceTitle').value,
+                preco: parseFloat(document.getElementById('newServicePrice').value),
+                imagem: document.getElementById('newServiceImage').value
+            };
+            
+            servicos.push(newService);
+            loadAdminServices();
+            carregarServicos();
+            document.getElementById('newServiceForm').reset();
+            return false;
+        }
+        
+        function updateService(id, field, value) {
+            const servico = servicos.find(s => s.id === id);
+            if (servico) {
+                if (field === 'preco') {
+                    servico[field] = parseFloat(value);
+                } else {
+                    servico[field] = value;
+                }
+                carregarServicos();
+                loadAdminServices();
+            }
+        }
+        
+        function deleteService(id) {
+            if (confirm('Tem certeza que deseja excluir este serviço?')) {
+                const index = servicos.findIndex(s => s.id === id);
+                if (index > -1) {
+                    servicos.splice(index, 1);
+                    loadAdminServices();
+                    carregarServicos();
+                }
+            }
+        }
+        
+        function handleImageUpload(type) {
+            if (!isAdminLoggedIn) {
+                alert('Por favor, faça login como administrador primeiro para fazer upload de imagens.');
+                mostrarPagina('admin');
+                return;
+            }
+        
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        if (type === 'before') {
+                            createComparisonContainer(event.target.result, null);
+                        } else {
+                            addAfterImage(event.target.result);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            input.click();
+        }
+        
+        function createComparisonContainer(beforeImage, afterImage) {
+            const grid = document.getElementById('comparison-grid');
+            const container = document.createElement('div');
+            container.className = 'comparison-container';
+            container.setAttribute('data-empty-after', 'true');
+            
+            container.innerHTML = `
+                <div class="gallery-item">
+                    <div class="before-after-container">
+                        <button class="delete-image-btn" onclick="deleteImage(this, 'before')">&times;</button>
+                        <img src="${beforeImage}" 
+                             alt="Antes da instalação" 
+                             class="img-fluid gallery-img" 
+                             width="400" 
+                             height="300"
+                             onclick="openImageModal('${beforeImage}')">
+                        <div class="image-caption">Antes</div>
+                    </div>
+                </div>
+                <div class="gallery-item ${!afterImage ? 'empty-after' : ''}">
+                    <div class="before-after-container">
+                        ${afterImage ? `
+                            <button class="delete-image-btn" onclick="deleteImage(this, 'after')">&times;</button>
+                            <img src="${afterImage}" 
+                                 alt="Depois da instalação" 
+                                 class="img-fluid gallery-img" 
+                                 width="400" 
+                                 height="300"
+                                 onclick="openImageModal('${afterImage}')">
+                            <div class="image-caption">Depois</div>
+                        ` : '<div class="empty-placeholder">Aguardando imagem "Depois"</div>'}
+                    </div>
+                </div>
+            `;
+            
+            grid.appendChild(container);
+        }
+        
+        function addAfterImage(afterImage) {
+            const emptyContainer = document.querySelector('.comparison-container[data-empty-after="true"]');
+            if (emptyContainer) {
+                const emptyAfter = emptyContainer.querySelector('.empty-after');
+                emptyAfter.innerHTML = `
+                    <div class="before-after-container">
+                        <button class="delete-image-btn" onclick="deleteImage(this, 'after')">&times;</button>
+                        <img src="${afterImage}" 
+                             alt="Depois da instalação" 
+                             class="img-fluid gallery-img" 
+                             width="400" 
+                             height="300"
+                             onclick="openImageModal('${afterImage}')">
+                        <div class="image-caption">Depois</div>
+                    </div>
+                `;
+                emptyContainer.removeAttribute('data-empty-after');
+            } else {
+                alert('Por favor, faça primeiro o upload de uma imagem "Antes"');
+            }
+        }
+        
+        function deleteImage(button, type) {
+            if (!isAdminLoggedIn) {
+                alert('É necessário estar logado como administrador para excluir imagens.');
+                return;
+            }
+        
+            if (confirm('Tem certeza que deseja excluir esta imagem?')) {
+                const container = button.closest('.comparison-container');
+                
+                if (type === 'before') {
+                    container.remove();
+                } else if (type === 'after') {
+                    const afterDiv = button.closest('.gallery-item');
+                    afterDiv.className = 'gallery-item empty-after';
+                    afterDiv.innerHTML = '<div class="empty-placeholder">Aguardando imagem "Depois"</div>';
+                    container.setAttribute('data-empty-after', 'true');
+                }
+            }
+        }
+        
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'flex';
+            modalImg.src = imageSrc;
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Carregar serviços ao iniciar
+        window.onload = function() {
+            carregarServicos();
+            mostrarPagina(window.location.pathname.replace('/', ''));
+        };
+        
+        function filtrarServicos() {
+            const searchTerm = document.getElementById('searchServicos').value.toLowerCase();
+            
+            if (searchTerm.length >= 3) {
+                const listaServicos = document.getElementById('lista-servicos');
+                const cards = listaServicos.getElementsByClassName('col-lg-4');
+                
+                Array.from(cards).forEach(card => {
+                    const titulo = card.querySelector('.form-check-label').textContent.toLowerCase();
+                    if (titulo.includes(searchTerm)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            } else {
+                const cards = document.getElementById('lista-servicos').getElementsByClassName('col-lg-4');
+                Array.from(cards).forEach(card => {
+                    card.style.display = '';
+                });
+            }
+        }
+        
+        </script>
+        
+        <footer class="footer mt-5">
+            <div class="container text-center">
+                <p>&copy; 2024 Prime Elétrica - Todos os direitos reservados</p>
+            </div>
+        </footer>
+        
+        </body>
+        </html>
+</body>
+</html>
